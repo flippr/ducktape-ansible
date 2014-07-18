@@ -4,5 +4,7 @@
   notify:
     - mysql_secure_install
     - restart mysql
+- name: Create ducktape MySQL database
+  mysql_db: name=ducktape state=present
 - name: Create ducktape MySQL user with permissions to ducktape.*
   mysql_user: name=ducktape password=DuckTape1! priv=ducktape.*:ALL state=present
