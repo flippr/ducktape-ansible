@@ -1,0 +1,8 @@
+- name: Install MySQL
+  sudo: true
+  apt: name=mysql-server state=present
+  notify:
+    - mysql_secure_install
+    - restart mysql
+- name: Create ducktape MySQL user with permissions to ducktape.*
+  mysql_user: name=ducktape password=DuckTape1! priv=ducktape.*:ALL state=present

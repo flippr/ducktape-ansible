@@ -1,0 +1,41 @@
+- name: Install pecl_http
+  sudo: true
+  shell: printf "yes\n" | pecl install http://pecl.php.net/get/pecl_http-1.7.6.tgz
+  ignore_errors: yes
+  failed_when: "'installed' not in http.stdout"
+  register: http
+- name: Add extension=http.so to php.ini
+  sudo: true
+  lineinfile: dest={{item}} line='extension=http.so' state=present
+  with_items: phpinis
+  when: http|success
+- name: Install pecl_oauth
+  sudo: true
+  shell: printf "yes\n" | pecl install oauth
+  ignore_errors: yes
+  failed_when: "'installed' not in oauth.stdout"
+  register: oauth
+- name: Add extension to apache2/php.ini
+  sudo: true
+  lineinfile: dest={{item}} line='extension=oauth.so' state=present
+  with_items: phpinis
+  when: oauth|success
+- name: Channel Update pear.php.net
+  sudo: true
+  shell: pear channel-update pear.php.net
+- name: Upgrade PEAR
+  sudo: true
+  shell: pear upgrade pear
+- name: Discovering PEAR channels
+  sudo: true
+  shell: pear channel-discover {{item}}
+  with_items: pears
+  register: channels
+  ignore_errors: yes
+  failed_when: "'initialized' not in channels.stdout"
+- name: Install PHPUnit
+  sudo: true
+  register: phpunit
+  shell: pear install -a phpunit/PHPUnit
+  ignore_errors: yes
+  failed_when: "'installed' not in phpunit.stdout"

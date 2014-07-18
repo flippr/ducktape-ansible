@@ -1,0 +1,27 @@
+- name: Check if DuckTape project exists
+  stat: path={{ducktape_webdir}}/ducktape
+  register: directory
+- name: Clone GitHub DuckTape Default Project
+  git: repo=https://github.com/jbkc85/DucktapeExample.git dest={{ducktape_webdir}}/ducktape
+  when: directory.stat.isdir is not defined
+- name: Clone ducktape.php from Github to Example project
+  git: repo=https://github.com/expressiveanalytics/ducktape.php.git dest={{ducktape_webdir}}/ducktape/ducktape.php
+  when: directory.stat.isdir is not defined
+- name: Generate api.yml secret
+  shell: "php {{ducktape_webdir}}/ducktape/local/generate_secret.php"
+  register: sekrit
+- name: Generate api.yml key
+  shell: "php {{ducktape_webdir}}/ducktape/local/generate_key.php"
+  register: key
+- name: Does api.yml exist in ducktape example?
+  stat: path={{ducktape_webdir}}/ducktape/local/api.yml
+  register: apiyml
+- name: Place secret/key/provider IP in api.yml
+  template: src=api-default.yml.j2 dest="{{ducktape_webdir}}/ducktape/local/api.yml"
+  when: apiyml.stat.exists is not defined or apiyml.stat.exists == false
+- name: Replace URL in api.yml with IP of localhost
+  debug: msg="only replace ipv4 address"
+  when: apiyml.stat.exists is defined and apiyml.stat.exists == true
+#  lineinfile: dest={{ducktape_webdir}}/ducktape/local/api.yml regexp=^\s\surl: line="  url: http://{{ansible_default_ipv4['address']}}/providers"
+- name: Replace Records in MySQL dump for default Consumer
+  debug: msg="placeholder"

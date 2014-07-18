@@ -1,0 +1,122 @@
+
+PLAY [all] ******************************************************************** 
+
+GATHERING FACTS *************************************************************** 
+ok: [localhost]
+
+TASK: [debian | Installing Required Packages (apt-get)] *********************** 
+ok: [localhost] => (item=python-mysqldb,php5,php5-dev,php5-curl,libcurl4-openssl-dev,php-pear,libpcre3-dev,wget,git,php5-mysql,php5-sqlite,sqlite3)
+
+TASK: [debian | Creating developers Group] ************************************ 
+ok: [localhost]
+
+TASK: [debian | Add ducktape user to developers group] ************************ 
+ok: [localhost]
+
+TASK: [debian | Add www user to developers group] ***************************** 
+ok: [localhost]
+
+TASK: [debian | Adjusting permissions of Ducktape WebDir] ********************* 
+ok: [localhost]
+
+TASK: [debian | Install pecl_http] ******************************************** 
+changed: [localhost]
+
+TASK: [debian | Add extension=http.so to php.ini] ***************************** 
+skipping: [localhost] => (item=phpinis)
+
+TASK: [debian | Install pecl_oauth] ******************************************* 
+changed: [localhost]
+
+TASK: [debian | Add extension to apache2/php.ini] ***************************** 
+skipping: [localhost] => (item=phpinis)
+
+TASK: [debian | Channel Update pear.php.net] ********************************** 
+changed: [localhost]
+
+TASK: [debian | Upgrade PEAR] ************************************************* 
+changed: [localhost]
+
+TASK: [debian | Discovering PEAR channels] ************************************ 
+changed: [localhost] => (item=pear.phpunit.de)
+changed: [localhost] => (item=pear.symfony-project.com)
+changed: [localhost] => (item=components.ez.no)
+
+TASK: [debian | Install PHPUnit] ********************************************** 
+changed: [localhost]
+
+TASK: [debian | Replacing default config with ducktape example] *************** 
+ok: [localhost]
+
+TASK: [debian | Install MySQL] ************************************************ 
+ok: [localhost]
+
+TASK: [debian | Create ducktape MySQL user with permissions to ducktape.*] **** 
+ok: [localhost]
+
+TASK: [Check if DuckTape project exists] ************************************** 
+ok: [localhost]
+
+TASK: [Clone GitHub DuckTape Default Project] ********************************* 
+skipping: [localhost]
+
+TASK: [Clone ducktape.php from Github to Example project] ********************* 
+skipping: [localhost]
+
+TASK: [Generate api.yml secret] *********************************************** 
+changed: [localhost]
+
+TASK: [Generate api.yml key] ************************************************** 
+changed: [localhost]
+
+TASK: [Does api.yml exist in ducktape example?] ******************************* 
+ok: [localhost]
+
+TASK: [Place secret/key/provider IP in api.yml] ******************************* 
+skipping: [localhost]
+
+TASK: [Replace URL in api.yml with IP of localhost] *************************** 
+ok: [localhost] => {
+    "msg": "only replace ipv4 address"
+}
+
+TASK: [Replace Records in MySQL dump for default Consumer] ******************** 
+ok: [localhost] => {
+    "msg": "placeholder"
+}
+
+TASK: [Creating directories in /var/www for projects] ************************* 
+ok: [localhost] => (item={'value': {'secret': 'thisisasecretforthekey', 'scheme': 'https', 'key': 'thisisakey', 'provider': 'http://localhost/providers/'}, 'key': 'example'})
+
+TASK: [Cloning ducktape from Github to all projects] ************************** 
+ok: [localhost] => (item={'value': {'secret': 'thisisasecretforthekey', 'scheme': 'https', 'key': 'thisisakey', 'provider': 'http://localhost/providers/'}, 'key': 'example'})
+
+TASK: [Create local directory] ************************************************ 
+ok: [localhost] => (item={'value': {'secret': 'thisisasecretforthekey', 'scheme': 'https', 'key': 'thisisakey', 'provider': 'http://localhost/providers/'}, 'key': 'example'})
+
+TASK: [Drop in template config.yml file] ************************************** 
+ok: [localhost] => (item={'value': {'secret': 'thisisasecretforthekey', 'scheme': 'https', 'key': 'thisisakey', 'provider': 'http://localhost/providers/'}, 'key': 'example'})
+
+TASK: [Drop in template api.yml file] ***************************************** 
+ok: [localhost] => (item={'value': {'secret': 'thisisasecretforthekey', 'scheme': 'https', 'key': 'thisisakey', 'provider': 'http://localhost/providers/'}, 'key': 'example'})
+
+TASK: [Create site directory] ************************************************* 
+ok: [localhost] => (item={'value': {'secret': 'thisisasecretforthekey', 'scheme': 'https', 'key': 'thisisakey', 'provider': 'http://localhost/providers/'}, 'key': 'example'})
+
+TASK: [Create logs directory] ************************************************* 
+ok: [localhost] => (item={'value': {'secret': 'thisisasecretforthekey', 'scheme': 'https', 'key': 'thisisakey', 'provider': 'http://localhost/providers/'}, 'key': 'example'})
+
+TASK: [Create error.log Logfile] ********************************************** 
+changed: [localhost] => (item={'value': {'secret': 'thisisasecretforthekey', 'scheme': 'https', 'key': 'thisisakey', 'provider': 'http://localhost/providers/'}, 'key': 'example'})
+
+TASK: [Change permissions of error.log Logfile] ******************************* 
+ok: [localhost] => (item={'value': {'secret': 'thisisasecretforthekey', 'scheme': 'https', 'key': 'thisisakey', 'provider': 'http://localhost/providers/'}, 'key': 'example'})
+
+TASK: [All Done!] ************************************************************* 
+ok: [localhost] => {
+    "msg": "Remember to Secure your installation of MySQL and Postgres if this server is accessible to the public.  This script only sets up the default packages for you, it does not set passwords of the Root Database users!"
+}
+
+PLAY RECAP ******************************************************************** 
+localhost                  : ok=33   changed=9    unreachable=0    failed=0   
+

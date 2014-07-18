@@ -1,0 +1,8 @@
+- name: mysql_secure_install
+  shell: echo "ducktape"
+- name: restart mysql
+  sudo: true
+  action: service name=mysql state=restarted enabled=yes
+- name: restart apache
+  sudo: true
+  action: service name=apache state=restarted enabled=yes

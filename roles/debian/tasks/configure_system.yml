@@ -1,0 +1,16 @@
+- name: Installing Required Packages (apt-get)
+  sudo: true
+  apt: name={{item}} state=present
+  with_items: packages
+- name: Creating developers Group
+  sudo: true
+  group: name=developers state=present
+- name: Add ducktape user to developers group
+  sudo: true
+  user: name=ducktape groups=developers
+- name: Add www user to developers group
+  sudo: true
+  user: name=www groups=developers
+- name: Adjusting permissions of Ducktape WebDir
+  sudo: true
+  file: path={{ducktape_webdir}} owner=ducktape group=developers mode=2775

@@ -1,0 +1,16 @@
+{{item.key}}:
+  {% if item.value.url is defined %}
+  url: '{{item.value.provider}}'
+  {% else %}
+  url: 'http://path.to.provider'
+  {% endif %}
+  {% if item.value.key is defined %}
+  key: '{{item.value.key}}'
+  {% else %}
+  key: '1111111111111111'
+  {% endif %}
+  {% if item.value.secret is defined %}
+  secret: '{{item.value.secret}}'
+  {% else %}
+  secret: '1111111111111111111111111111'
+  {% endif %}

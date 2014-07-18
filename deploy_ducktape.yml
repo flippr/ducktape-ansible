@@ -1,0 +1,13 @@
+- hosts: all
+  vars:
+    ducktape_github: "https://github.com/expressiveanalytics/ducktape.php.git"
+    ducktape_webdir: "/var/www"
+  vars_files:
+  - common_vars/ducktape.yml
+  roles:
+  - { role: debian, when: "ansible_os_family == 'Debian'" }
+  tasks:
+  - { include: tasks/setup_default_project.yml }
+  - { include: tasks/setup_projects.yml }
+  - name: All Done!
+    debug: msg="Remember to Secure your installation of MySQL and Postgres if this server is accessible to the public.  This script only sets up the default packages for you, it does not set passwords of the Root Database users!"

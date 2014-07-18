@@ -1,0 +1,29 @@
+- name: Creating directories in /var/www for projects
+  sudo: true
+  file: path={{ducktape_webdir}}/{{item.key}} owner=ducktape group=developers mode=2775 state=directory
+  with_dict: projects
+- name: Cloning ducktape from Github to all projects
+  git: repo={{ducktape_github}} dest={{ducktape_webdir}}/{{item.key}}/ducktape.php
+  with_dict: projects
+- name: Create local directory
+  file: path={{ducktape_webdir}}/{{item.key}}/local owner=ducktape group=developers mode=0755 state=directory
+  with_dict: projects
+- name: Drop in template config.yml file
+  template: src=config.yml.j2 dest={{ducktape_webdir}}/{{item.key}}/local/config.yml backup=yes
+  with_dict: projects
+- name: Drop in template api.yml file
+  template: src=api.yml.j2 dest={{ducktape_webdir}}/{{item.key}}/local/api.yml backup=yes
+  with_dict: projects
+- name: Create site directory
+  file: path={{ducktape_webdir}}/{{item.key}}/site owner=ducktape group=developers mode=2775 state=directory
+  with_dict: projects
+- name: Create logs directory
+  file: path={{ducktape_webdir}}/{{item.key}}/logs owner=ducktape group=developers mode=2775 state=directory
+  with_dict: projects
+- name: Create error.log Logfile
+  shell: touch {{ducktape_webdir}}/{{item.key}}/logs/error.log
+  with_dict: projects
+- name: Change permissions of error.log Logfile
+  sudo: true
+  file: path={{ducktape_webdir}}/{{item.key}}/logs/error.log owner=ducktape group=developers mode=664 state=file
+  with_dict: projects

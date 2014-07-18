@@ -1,0 +1,5 @@
+- name: Replacing default config with ducktape example
+  sudo: true
+  template: src=ducktape.conf.j2 dest=/etc/apache2/sites-available/default owner=ducktape group=developers mode=0664 backup=yes
+  notify:
+    - restart apache

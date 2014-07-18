@@ -1,0 +1,23 @@
+apache_home: "/var/www"
+apache_user: "www"
+
+# Packages required for Ducktape
+packages:
+  - "python-mysqldb"
+  - "php5"
+  - "php5-dev"
+  - "php5-curl"
+  - "libcurl4-openssl-dev"
+  - "php-pear"
+  - "libpcre3-dev"
+  - "wget"
+  - "git"
+  - "php5-mysql"
+  - "php5-sqlite"
+  - "sqlite3"
+#  - "php5-pgsql"
+#  - "postgresql-9.1"
+pears:
+  - "pear.phpunit.de"
+  - "pear.symfony-project.com"
+  - "components.ez.no"
