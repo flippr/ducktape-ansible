@@ -15,8 +15,8 @@ packages:
   - "php5-mysql"
   - "php5-sqlite"
   - "sqlite3"
-#  - "php5-pgsql"
-#  - "postgresql-9.1"
+  - "php5-pgsql"
+  - "postgresql-9.1"
 pears:
   - "pear.phpunit.de"
   - "pear.symfony-project.com"
