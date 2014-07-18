@@ -8,7 +8,7 @@
   sudo: true
   lineinfile: dest={{item}} line='extension=http.so' state=present
   with_items: phpinis
-  when: http|success
+  when: http|success or http|changed
 - name: Install pecl_oauth
   sudo: true
   shell: printf "yes\n" | pecl install oauth
@@ -17,9 +17,9 @@
   register: oauth
 - name: Add extension to apache2/php.ini
   sudo: true
-  lineinfile: dest={{item}} line='extension=oauth.so' state=present
+  lineinfile: dest="{{item}}" line='extension=oauth.so' state=present
   with_items: phpinis
-  when: oauth|success
+  when: oauth|success or oauth|changed
 - name: Channel Update pear.php.net
   sudo: true
   shell: pear channel-update pear.php.net

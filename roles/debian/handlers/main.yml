@@ -5,4 +5,4 @@
   action: service name=mysql state=restarted enabled=yes
 - name: restart apache
   sudo: true
-  action: service name=apache state=restarted enabled=yes
+  action: service name=apache2 state=restarted enabled=yes
