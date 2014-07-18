@@ -2,12 +2,8 @@ apache_group: "ducktape"
 github_example: "https://github.com/jbkc85/DucktapeExample.git"
 
 projects:
-  example:
-    scheme: "https"
-    provider: "http://localhost/providers/"
-    key: "thisisakey"
-    secret: "thisisasecretforthekey"
-
-phpinis:
-  - "/etc/php5/apache2/php.ini"
-  - "/etc/php5/cli/php.ini"
+#  example:
+#    scheme: "https"
+#    provider: "http://localhost/providers/"
+#    key: "thisisakey"
+#    secret: "thisisasecretforthekey"
