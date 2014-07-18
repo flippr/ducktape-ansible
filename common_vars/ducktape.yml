@@ -2,8 +2,8 @@ apache_group: "ducktape"
 github_example: "https://github.com/jbkc85/DucktapeExample.git"
 
 projects:
-#  example:
-#    scheme: "https"
-#    provider: "http://localhost/providers/"
-#    key: "thisisakey"
-#    secret: "thisisasecretforthekey"
+  example:
+    scheme: "https"
+    provider: "http://localhost/providers/"
+    key: "thisisakey"
+    secret: "thisisasecretforthekey"
