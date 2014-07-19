@@ -22,6 +22,9 @@
 - name: Replace URL in api.yml with IP of localhost
   debug: msg="only replace ipv4 address"
   when: apiyml.stat.exists is defined and apiyml.stat.exists == true
-#  lineinfile: dest={{ducktape_webdir}}/ducktape/local/api.yml regexp=^\s\surl: line="  url: http://{{ansible_default_ipv4['address']}}/providers"
+- name: Insert 'insert' statement in SQL
+  lineinfile: dest={{ducktape_webdir}}/ducktape/local/ducktape-gettingstarted.sql line="INSERT INTO `consumers` VALUES (1,'ducktape','{{key.stdout}}','{{sekrit.stdout}}','1',NULL);" regexp="^INSERT INTO `consumers`" insertafter="-- INSERT HERE --"
+- name: Create ducktape database
+  mysql_db: name=ducktape state=present
 - name: Replace Records in MySQL dump for default Consumer
-  debug: msg="placeholder"
+  mysql_db: name=ducktape state=import target={{ducktape_webdir}}/ducktape/local/ducktape-gettingstarted.sql login_user={{mysql_user}} login_password={{mysql_pass}}

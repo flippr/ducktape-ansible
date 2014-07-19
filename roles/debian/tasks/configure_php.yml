@@ -9,6 +9,17 @@
   lineinfile: dest={{item}} line='extension=http.so' state=present
   with_items: phpinis
   when: http|success or http|changed
+- name: Install pecl_yaml
+  sudo: true
+  shell: printf "\n" | pecl install yaml
+  ignore_errors: yes
+  failed_when: "'installed' not in yaml.stdout"
+  register: yaml
+- name: Add extension=yaml.so to php.ini
+  sudo: true
+  lineinfile: dest={{item}} line='extension=yaml.so' state=present
+  when: yaml|success or yaml|changed
+  with_items: phpinis
 - name: Install pecl_oauth
   sudo: true
   shell: printf "yes\n" | pecl install oauth

@@ -1,0 +1,206 @@
+
+PLAY [all] ******************************************************************** 
+
+GATHERING FACTS *************************************************************** 
+<localhost> REMOTE_MODULE setup
+<localhost> EXEC ['/bin/sh', '-c', 'mkdir -p $HOME/.ansible/tmp/ansible-tmp-1405719132.76-127029429015189 && chmod a+rx $HOME/.ansible/tmp/ansible-tmp-1405719132.76-127029429015189 && echo $HOME/.ansible/tmp/ansible-tmp-1405719132.76-127029429015189']
+<localhost> PUT /tmp/tmpwf92FL TO /home/ducktape/.ansible/tmp/ansible-tmp-1405719132.76-127029429015189/setup
+<localhost> EXEC ['/bin/sh', '-c', u'LC_CTYPE=en_US.UTF-8 LANG=en_US.UTF-8 /usr/bin/python /home/ducktape/.ansible/tmp/ansible-tmp-1405719132.76-127029429015189/setup; rm -rf /home/ducktape/.ansible/tmp/ansible-tmp-1405719132.76-127029429015189/ >/dev/null 2>&1']
+ok: [localhost]
+
+TASK: [debian | Installing Required Packages (apt-get)] *********************** 
+<localhost> REMOTE_MODULE apt name=python-mysqldb,php5,php5-dev,php5-curl,libcurl4-openssl-dev,php-pear,libpcre3-dev,wget,git,php5-mysql,php5-sqlite,sqlite3,php5-pgsql,postgresql-9.1 state=present
+<localhost> EXEC ['/bin/sh', '-c', 'mkdir -p $HOME/.ansible/tmp/ansible-tmp-1405719132.99-147027030887801 && chmod a+rx $HOME/.ansible/tmp/ansible-tmp-1405719132.99-147027030887801 && echo $HOME/.ansible/tmp/ansible-tmp-1405719132.99-147027030887801']
+<localhost> PUT /tmp/tmpjeDZAn TO /home/ducktape/.ansible/tmp/ansible-tmp-1405719132.99-147027030887801/apt
+<localhost> EXEC /bin/sh -c 'sudo -k && sudo -H -S -p "[sudo via ansible, key=pjvwskebidrkidkzxfbcqwmjcehlpelg] password: " -u root /bin/sh -c '"'"'echo SUDO-SUCCESS-pjvwskebidrkidkzxfbcqwmjcehlpelg; LC_CTYPE=en_US.UTF-8 LANG=en_US.UTF-8 /usr/bin/python /home/ducktape/.ansible/tmp/ansible-tmp-1405719132.99-147027030887801/apt; rm -rf /home/ducktape/.ansible/tmp/ansible-tmp-1405719132.99-147027030887801/ >/dev/null 2>&1'"'"''
+ok: [localhost] => (item=python-mysqldb,php5,php5-dev,php5-curl,libcurl4-openssl-dev,php-pear,libpcre3-dev,wget,git,php5-mysql,php5-sqlite,sqlite3,php5-pgsql,postgresql-9.1) => {"changed": false, "item": "python-mysqldb,php5,php5-dev,php5-curl,libcurl4-openssl-dev,php-pear,libpcre3-dev,wget,git,php5-mysql,php5-sqlite,sqlite3,php5-pgsql,postgresql-9.1"}
+
+TASK: [debian | Creating developers Group] ************************************ 
+<localhost> REMOTE_MODULE group name=developers state=present
+<localhost> EXEC ['/bin/sh', '-c', 'mkdir -p $HOME/.ansible/tmp/ansible-tmp-1405719133.21-263881910987075 && chmod a+rx $HOME/.ansible/tmp/ansible-tmp-1405719133.21-263881910987075 && echo $HOME/.ansible/tmp/ansible-tmp-1405719133.21-263881910987075']
+<localhost> PUT /tmp/tmpXSGo6m TO /home/ducktape/.ansible/tmp/ansible-tmp-1405719133.21-263881910987075/group
+<localhost> EXEC /bin/sh -c 'sudo -k && sudo -H -S -p "[sudo via ansible, key=lmafecpgakdsuzsymyqcipajepukmfie] password: " -u root /bin/sh -c '"'"'echo SUDO-SUCCESS-lmafecpgakdsuzsymyqcipajepukmfie; LC_CTYPE=en_US.UTF-8 LANG=en_US.UTF-8 /usr/bin/python /home/ducktape/.ansible/tmp/ansible-tmp-1405719133.21-263881910987075/group; rm -rf /home/ducktape/.ansible/tmp/ansible-tmp-1405719133.21-263881910987075/ >/dev/null 2>&1'"'"''
+ok: [localhost] => {"changed": false, "gid": 1001, "name": "developers", "state": "present", "system": false}
+
+TASK: [debian | Add ducktape user to developers group] ************************ 
+<localhost> REMOTE_MODULE user name=ducktape groups=developers
+<localhost> EXEC ['/bin/sh', '-c', 'mkdir -p $HOME/.ansible/tmp/ansible-tmp-1405719133.27-73284468855258 && chmod a+rx $HOME/.ansible/tmp/ansible-tmp-1405719133.27-73284468855258 && echo $HOME/.ansible/tmp/ansible-tmp-1405719133.27-73284468855258']
+<localhost> PUT /tmp/tmpRJhOYa TO /home/ducktape/.ansible/tmp/ansible-tmp-1405719133.27-73284468855258/user
+<localhost> EXEC /bin/sh -c 'sudo -k && sudo -H -S -p "[sudo via ansible, key=xcrctgagkshhgutddnkfxxvgesjnqvvn] password: " -u root /bin/sh -c '"'"'echo SUDO-SUCCESS-xcrctgagkshhgutddnkfxxvgesjnqvvn; LC_CTYPE=en_US.UTF-8 LANG=en_US.UTF-8 /usr/bin/python /home/ducktape/.ansible/tmp/ansible-tmp-1405719133.27-73284468855258/user; rm -rf /home/ducktape/.ansible/tmp/ansible-tmp-1405719133.27-73284468855258/ >/dev/null 2>&1'"'"''
+ok: [localhost] => {"append": false, "changed": false, "comment": "DuckTape User,,,", "group": 1000, "groups": "developers", "home": "/home/ducktape", "move_home": false, "name": "ducktape", "shell": "/bin/bash", "state": "present", "uid": 1000}
+
+TASK: [debian | Add www user to developers group] ***************************** 
+<localhost> REMOTE_MODULE user name=www groups=developers
+<localhost> EXEC ['/bin/sh', '-c', 'mkdir -p $HOME/.ansible/tmp/ansible-tmp-1405719133.33-218025703250481 && chmod a+rx $HOME/.ansible/tmp/ansible-tmp-1405719133.33-218025703250481 && echo $HOME/.ansible/tmp/ansible-tmp-1405719133.33-218025703250481']
+<localhost> PUT /tmp/tmpAvOR9R TO /home/ducktape/.ansible/tmp/ansible-tmp-1405719133.33-218025703250481/user
+<localhost> EXEC /bin/sh -c 'sudo -k && sudo -H -S -p "[sudo via ansible, key=ilarbzyeijejotzeepfagmjyipolwsaf] password: " -u root /bin/sh -c '"'"'echo SUDO-SUCCESS-ilarbzyeijejotzeepfagmjyipolwsaf; LC_CTYPE=en_US.UTF-8 LANG=en_US.UTF-8 /usr/bin/python /home/ducktape/.ansible/tmp/ansible-tmp-1405719133.33-218025703250481/user; rm -rf /home/ducktape/.ansible/tmp/ansible-tmp-1405719133.33-218025703250481/ >/dev/null 2>&1'"'"''
+ok: [localhost] => {"append": false, "changed": false, "comment": "", "group": 1002, "groups": "developers", "home": "/home/www", "move_home": false, "name": "www", "shell": "/bin/sh", "state": "present", "uid": 1001}
+
+TASK: [debian | Adjusting permissions of Ducktape WebDir] ********************* 
+<localhost> REMOTE_MODULE file path=/var/www owner=ducktape group=developers mode=2775
+<localhost> EXEC ['/bin/sh', '-c', 'mkdir -p $HOME/.ansible/tmp/ansible-tmp-1405719133.4-275270186302276 && chmod a+rx $HOME/.ansible/tmp/ansible-tmp-1405719133.4-275270186302276 && echo $HOME/.ansible/tmp/ansible-tmp-1405719133.4-275270186302276']
+<localhost> PUT /tmp/tmpVLWiQ_ TO /home/ducktape/.ansible/tmp/ansible-tmp-1405719133.4-275270186302276/file
+<localhost> EXEC /bin/sh -c 'sudo -k && sudo -H -S -p "[sudo via ansible, key=ijizfiupwwsxobsyvccsiwkbgyiflqqv] password: " -u root /bin/sh -c '"'"'echo SUDO-SUCCESS-ijizfiupwwsxobsyvccsiwkbgyiflqqv; LC_CTYPE=en_US.UTF-8 LANG=en_US.UTF-8 /usr/bin/python /home/ducktape/.ansible/tmp/ansible-tmp-1405719133.4-275270186302276/file; rm -rf /home/ducktape/.ansible/tmp/ansible-tmp-1405719133.4-275270186302276/ >/dev/null 2>&1'"'"''
+ok: [localhost] => {"changed": false, "gid": 1001, "group": "developers", "mode": "02775", "owner": "ducktape", "path": "/var/www", "size": 4096, "state": "directory", "uid": 1000}
+
+TASK: [debian | Install pecl_http] ******************************************** 
+<localhost> REMOTE_MODULE command printf "yes\n" | pecl install http://pecl.php.net/get/pecl_http-1.7.6.tgz #USE_SHELL
+<localhost> EXEC ['/bin/sh', '-c', 'mkdir -p $HOME/.ansible/tmp/ansible-tmp-1405719133.45-1645473209960 && chmod a+rx $HOME/.ansible/tmp/ansible-tmp-1405719133.45-1645473209960 && echo $HOME/.ansible/tmp/ansible-tmp-1405719133.45-1645473209960']
+<localhost> PUT /tmp/tmpLvcEWg TO /home/ducktape/.ansible/tmp/ansible-tmp-1405719133.45-1645473209960/command
+<localhost> EXEC /bin/sh -c 'sudo -k && sudo -H -S -p "[sudo via ansible, key=hspxmcbxzuewjvvlepifpvgbxhdajnfi] password: " -u root /bin/sh -c '"'"'echo SUDO-SUCCESS-hspxmcbxzuewjvvlepifpvgbxhdajnfi; LC_CTYPE=en_US.UTF-8 LANG=en_US.UTF-8 /usr/bin/python /home/ducktape/.ansible/tmp/ansible-tmp-1405719133.45-1645473209960/command; rm -rf /home/ducktape/.ansible/tmp/ansible-tmp-1405719133.45-1645473209960/ >/dev/null 2>&1'"'"''
+changed: [localhost] => {"changed": true, "cmd": "printf \"yes\\n\" | pecl install http://pecl.php.net/get/pecl_http-1.7.6.tgz ", "delta": "0:00:01.973622", "end": "2014-07-18 16:32:15.466860", "failed": false, "failed_when_result": false, "rc": 1, "start": "2014-07-18 16:32:13.493238", "stderr": "", "stdout": "downloading pecl_http-1.7.6.tgz ...\nStarting to download pecl_http-1.7.6.tgz (174,722 bytes)\n.................................done: 174,722 bytes\nSkipping package \"pecl/pecl_http\", already installed as version 1.7.6\nNo valid packages found\ninstall failed", "stdout_lines": ["downloading pecl_http-1.7.6.tgz ...", "Starting to download pecl_http-1.7.6.tgz (174,722 bytes)", ".................................done: 174,722 bytes", "Skipping package \"pecl/pecl_http\", already installed as version 1.7.6", "No valid packages found", "install failed"]}
+
+TASK: [debian | Add extension=http.so to php.ini] ***************************** 
+<localhost> REMOTE_MODULE lineinfile dest=/etc/php5/apache2/php.ini line='extension=http.so' state=present
+<localhost> EXEC ['/bin/sh', '-c', 'mkdir -p $HOME/.ansible/tmp/ansible-tmp-1405719135.49-223903989136379 && chmod a+rx $HOME/.ansible/tmp/ansible-tmp-1405719135.49-223903989136379 && echo $HOME/.ansible/tmp/ansible-tmp-1405719135.49-223903989136379']
+<localhost> PUT /tmp/tmpmR6MGQ TO /home/ducktape/.ansible/tmp/ansible-tmp-1405719135.49-223903989136379/lineinfile
+<localhost> EXEC /bin/sh -c 'sudo -k && sudo -H -S -p "[sudo via ansible, key=afqrinzblmwpaylvfizedmoapvzpknbo] password: " -u root /bin/sh -c '"'"'echo SUDO-SUCCESS-afqrinzblmwpaylvfizedmoapvzpknbo; LC_CTYPE=en_US.UTF-8 LANG=en_US.UTF-8 /usr/bin/python /home/ducktape/.ansible/tmp/ansible-tmp-1405719135.49-223903989136379/lineinfile; rm -rf /home/ducktape/.ansible/tmp/ansible-tmp-1405719135.49-223903989136379/ >/dev/null 2>&1'"'"''
+ok: [localhost] => (item=/etc/php5/apache2/php.ini) => {"backup": "", "changed": false, "item": "/etc/php5/apache2/php.ini", "msg": ""}
+<localhost> REMOTE_MODULE lineinfile dest=/etc/php5/cli/php.ini line='extension=http.so' state=present
+<localhost> EXEC ['/bin/sh', '-c', 'mkdir -p $HOME/.ansible/tmp/ansible-tmp-1405719135.53-173147068756829 && chmod a+rx $HOME/.ansible/tmp/ansible-tmp-1405719135.53-173147068756829 && echo $HOME/.ansible/tmp/ansible-tmp-1405719135.53-173147068756829']
+<localhost> PUT /tmp/tmplfXzv4 TO /home/ducktape/.ansible/tmp/ansible-tmp-1405719135.53-173147068756829/lineinfile
+<localhost> EXEC /bin/sh -c 'sudo -k && sudo -H -S -p "[sudo via ansible, key=uquibhoqhewltdluauesirefjjzqmsxm] password: " -u root /bin/sh -c '"'"'echo SUDO-SUCCESS-uquibhoqhewltdluauesirefjjzqmsxm; LC_CTYPE=en_US.UTF-8 LANG=en_US.UTF-8 /usr/bin/python /home/ducktape/.ansible/tmp/ansible-tmp-1405719135.53-173147068756829/lineinfile; rm -rf /home/ducktape/.ansible/tmp/ansible-tmp-1405719135.53-173147068756829/ >/dev/null 2>&1'"'"''
+ok: [localhost] => (item=/etc/php5/cli/php.ini) => {"backup": "", "changed": false, "item": "/etc/php5/cli/php.ini", "msg": ""}
+
+TASK: [debian | Install pecl_oauth] ******************************************* 
+<localhost> REMOTE_MODULE command printf "yes\n" | pecl install oauth #USE_SHELL
+<localhost> EXEC ['/bin/sh', '-c', 'mkdir -p $HOME/.ansible/tmp/ansible-tmp-1405719135.59-41970206868809 && chmod a+rx $HOME/.ansible/tmp/ansible-tmp-1405719135.59-41970206868809 && echo $HOME/.ansible/tmp/ansible-tmp-1405719135.59-41970206868809']
+<localhost> PUT /tmp/tmpAI8QCC TO /home/ducktape/.ansible/tmp/ansible-tmp-1405719135.59-41970206868809/command
+<localhost> EXEC /bin/sh -c 'sudo -k && sudo -H -S -p "[sudo via ansible, key=hvjculvdnhktymxmfjwfcxxxlnzjygti] password: " -u root /bin/sh -c '"'"'echo SUDO-SUCCESS-hvjculvdnhktymxmfjwfcxxxlnzjygti; LC_CTYPE=en_US.UTF-8 LANG=en_US.UTF-8 /usr/bin/python /home/ducktape/.ansible/tmp/ansible-tmp-1405719135.59-41970206868809/command; rm -rf /home/ducktape/.ansible/tmp/ansible-tmp-1405719135.59-41970206868809/ >/dev/null 2>&1'"'"''
+changed: [localhost] => {"changed": true, "cmd": "printf \"yes\\n\" | pecl install oauth ", "delta": "0:00:00.043494", "end": "2014-07-18 16:32:15.671334", "failed": false, "failed_when_result": false, "rc": 1, "start": "2014-07-18 16:32:15.627840", "stderr": "", "stdout": "pecl/oauth is already installed and is the same as the released version 1.2.3\ninstall failed", "stdout_lines": ["pecl/oauth is already installed and is the same as the released version 1.2.3", "install failed"]}
+
+TASK: [debian | Add extension to apache2/php.ini] ***************************** 
+<localhost> REMOTE_MODULE lineinfile dest="/etc/php5/apache2/php.ini" line='extension=oauth.so' state=present
+<localhost> EXEC ['/bin/sh', '-c', 'mkdir -p $HOME/.ansible/tmp/ansible-tmp-1405719135.69-84935203109145 && chmod a+rx $HOME/.ansible/tmp/ansible-tmp-1405719135.69-84935203109145 && echo $HOME/.ansible/tmp/ansible-tmp-1405719135.69-84935203109145']
+<localhost> PUT /tmp/tmpOU_qyT TO /home/ducktape/.ansible/tmp/ansible-tmp-1405719135.69-84935203109145/lineinfile
+<localhost> EXEC /bin/sh -c 'sudo -k && sudo -H -S -p "[sudo via ansible, key=tfndkcrpmeerpuxhpfszzztzojxovocr] password: " -u root /bin/sh -c '"'"'echo SUDO-SUCCESS-tfndkcrpmeerpuxhpfszzztzojxovocr; LC_CTYPE=en_US.UTF-8 LANG=en_US.UTF-8 /usr/bin/python /home/ducktape/.ansible/tmp/ansible-tmp-1405719135.69-84935203109145/lineinfile; rm -rf /home/ducktape/.ansible/tmp/ansible-tmp-1405719135.69-84935203109145/ >/dev/null 2>&1'"'"''
+ok: [localhost] => (item=/etc/php5/apache2/php.ini) => {"backup": "", "changed": false, "item": "/etc/php5/apache2/php.ini", "msg": ""}
+<localhost> REMOTE_MODULE lineinfile dest="/etc/php5/cli/php.ini" line='extension=oauth.so' state=present
+<localhost> EXEC ['/bin/sh', '-c', 'mkdir -p $HOME/.ansible/tmp/ansible-tmp-1405719135.74-88595823783947 && chmod a+rx $HOME/.ansible/tmp/ansible-tmp-1405719135.74-88595823783947 && echo $HOME/.ansible/tmp/ansible-tmp-1405719135.74-88595823783947']
+<localhost> PUT /tmp/tmpD6ajvN TO /home/ducktape/.ansible/tmp/ansible-tmp-1405719135.74-88595823783947/lineinfile
+<localhost> EXEC /bin/sh -c 'sudo -k && sudo -H -S -p "[sudo via ansible, key=hinykpgsqsoipkdctrdgiggrsdqzyaql] password: " -u root /bin/sh -c '"'"'echo SUDO-SUCCESS-hinykpgsqsoipkdctrdgiggrsdqzyaql; LC_CTYPE=en_US.UTF-8 LANG=en_US.UTF-8 /usr/bin/python /home/ducktape/.ansible/tmp/ansible-tmp-1405719135.74-88595823783947/lineinfile; rm -rf /home/ducktape/.ansible/tmp/ansible-tmp-1405719135.74-88595823783947/ >/dev/null 2>&1'"'"''
+ok: [localhost] => (item=/etc/php5/cli/php.ini) => {"backup": "", "changed": false, "item": "/etc/php5/cli/php.ini", "msg": ""}
+
+TASK: [debian | Channel Update pear.php.net] ********************************** 
+<localhost> REMOTE_MODULE command pear channel-update pear.php.net #USE_SHELL
+<localhost> EXEC ['/bin/sh', '-c', 'mkdir -p $HOME/.ansible/tmp/ansible-tmp-1405719135.79-252929064163989 && chmod a+rx $HOME/.ansible/tmp/ansible-tmp-1405719135.79-252929064163989 && echo $HOME/.ansible/tmp/ansible-tmp-1405719135.79-252929064163989']
+<localhost> PUT /tmp/tmpk2f9F0 TO /home/ducktape/.ansible/tmp/ansible-tmp-1405719135.79-252929064163989/command
+<localhost> EXEC /bin/sh -c 'sudo -k && sudo -H -S -p "[sudo via ansible, key=bietnbzydykbzfrvcnazaanfogebxooz] password: " -u root /bin/sh -c '"'"'echo SUDO-SUCCESS-bietnbzydykbzfrvcnazaanfogebxooz; LC_CTYPE=en_US.UTF-8 LANG=en_US.UTF-8 /usr/bin/python /home/ducktape/.ansible/tmp/ansible-tmp-1405719135.79-252929064163989/command; rm -rf /home/ducktape/.ansible/tmp/ansible-tmp-1405719135.79-252929064163989/ >/dev/null 2>&1'"'"''
+changed: [localhost] => {"changed": true, "cmd": "pear channel-update pear.php.net ", "delta": "0:00:00.926222", "end": "2014-07-18 16:32:16.757227", "rc": 0, "start": "2014-07-18 16:32:15.831005", "stderr": "", "stdout": "Updating channel \"pear.php.net\"\nChannel \"pear.php.net\" is up to date"}
+
+TASK: [debian | Upgrade PEAR] ************************************************* 
+<localhost> REMOTE_MODULE command pear upgrade pear #USE_SHELL
+<localhost> EXEC ['/bin/sh', '-c', 'mkdir -p $HOME/.ansible/tmp/ansible-tmp-1405719136.77-125466733120346 && chmod a+rx $HOME/.ansible/tmp/ansible-tmp-1405719136.77-125466733120346 && echo $HOME/.ansible/tmp/ansible-tmp-1405719136.77-125466733120346']
+<localhost> PUT /tmp/tmplSrS86 TO /home/ducktape/.ansible/tmp/ansible-tmp-1405719136.77-125466733120346/command
+<localhost> EXEC /bin/sh -c 'sudo -k && sudo -H -S -p "[sudo via ansible, key=ewlrhithqyqmtthjetdxcavbtlbvtyzb] password: " -u root /bin/sh -c '"'"'echo SUDO-SUCCESS-ewlrhithqyqmtthjetdxcavbtlbvtyzb; LC_CTYPE=en_US.UTF-8 LANG=en_US.UTF-8 /usr/bin/python /home/ducktape/.ansible/tmp/ansible-tmp-1405719136.77-125466733120346/command; rm -rf /home/ducktape/.ansible/tmp/ansible-tmp-1405719136.77-125466733120346/ >/dev/null 2>&1'"'"''
+changed: [localhost] => {"changed": true, "cmd": "pear upgrade pear ", "delta": "0:00:00.051884", "end": "2014-07-18 16:32:16.863128", "rc": 0, "start": "2014-07-18 16:32:16.811244", "stderr": "", "stdout": "Nothing to upgrade"}
+
+TASK: [debian | Discovering PEAR channels] ************************************ 
+<localhost> REMOTE_MODULE command pear channel-discover pear.phpunit.de #USE_SHELL
+<localhost> EXEC ['/bin/sh', '-c', 'mkdir -p $HOME/.ansible/tmp/ansible-tmp-1405719136.88-253179405666040 && chmod a+rx $HOME/.ansible/tmp/ansible-tmp-1405719136.88-253179405666040 && echo $HOME/.ansible/tmp/ansible-tmp-1405719136.88-253179405666040']
+<localhost> PUT /tmp/tmptJfiAi TO /home/ducktape/.ansible/tmp/ansible-tmp-1405719136.88-253179405666040/command
+<localhost> EXEC /bin/sh -c 'sudo -k && sudo -H -S -p "[sudo via ansible, key=rrezdvznavdnrbyfvczqrznxsodpwsjc] password: " -u root /bin/sh -c '"'"'echo SUDO-SUCCESS-rrezdvznavdnrbyfvczqrznxsodpwsjc; LC_CTYPE=en_US.UTF-8 LANG=en_US.UTF-8 /usr/bin/python /home/ducktape/.ansible/tmp/ansible-tmp-1405719136.88-253179405666040/command; rm -rf /home/ducktape/.ansible/tmp/ansible-tmp-1405719136.88-253179405666040/ >/dev/null 2>&1'"'"''
+changed: [localhost] => (item=pear.phpunit.de) => {"changed": true, "cmd": "pear channel-discover pear.phpunit.de ", "delta": "0:00:00.033106", "end": "2014-07-18 16:32:16.950794", "failed": false, "failed_when_result": false, "item": "pear.phpunit.de", "rc": 1, "start": "2014-07-18 16:32:16.917688", "stderr": "", "stdout": "Channel \"pear.phpunit.de\" is already initialized", "stdout_lines": ["Channel \"pear.phpunit.de\" is already initialized"]}
+<localhost> REMOTE_MODULE command pear channel-discover pear.symfony-project.com #USE_SHELL
+<localhost> EXEC ['/bin/sh', '-c', 'mkdir -p $HOME/.ansible/tmp/ansible-tmp-1405719136.96-189448853399852 && chmod a+rx $HOME/.ansible/tmp/ansible-tmp-1405719136.96-189448853399852 && echo $HOME/.ansible/tmp/ansible-tmp-1405719136.96-189448853399852']
+<localhost> PUT /tmp/tmpuXWLIj TO /home/ducktape/.ansible/tmp/ansible-tmp-1405719136.96-189448853399852/command
+<localhost> EXEC /bin/sh -c 'sudo -k && sudo -H -S -p "[sudo via ansible, key=lezsyzxyagvckzzdysvqmlmbvvcdcjld] password: " -u root /bin/sh -c '"'"'echo SUDO-SUCCESS-lezsyzxyagvckzzdysvqmlmbvvcdcjld; LC_CTYPE=en_US.UTF-8 LANG=en_US.UTF-8 /usr/bin/python /home/ducktape/.ansible/tmp/ansible-tmp-1405719136.96-189448853399852/command; rm -rf /home/ducktape/.ansible/tmp/ansible-tmp-1405719136.96-189448853399852/ >/dev/null 2>&1'"'"''
+changed: [localhost] => (item=pear.symfony-project.com) => {"changed": true, "cmd": "pear channel-discover pear.symfony-project.com ", "delta": "0:00:00.032737", "end": "2014-07-18 16:32:17.035409", "failed": false, "failed_when_result": false, "item": "pear.symfony-project.com", "rc": 1, "start": "2014-07-18 16:32:17.002672", "stderr": "", "stdout": "Channel \"pear.symfony-project.com\" is already initialized", "stdout_lines": ["Channel \"pear.symfony-project.com\" is already initialized"]}
+<localhost> REMOTE_MODULE command pear channel-discover components.ez.no #USE_SHELL
+<localhost> EXEC ['/bin/sh', '-c', 'mkdir -p $HOME/.ansible/tmp/ansible-tmp-1405719137.05-180468886045628 && chmod a+rx $HOME/.ansible/tmp/ansible-tmp-1405719137.05-180468886045628 && echo $HOME/.ansible/tmp/ansible-tmp-1405719137.05-180468886045628']
+<localhost> PUT /tmp/tmpTJhEy0 TO /home/ducktape/.ansible/tmp/ansible-tmp-1405719137.05-180468886045628/command
+<localhost> EXEC /bin/sh -c 'sudo -k && sudo -H -S -p "[sudo via ansible, key=puxfjfuthvekswwrdhjgvbxmyxjpaegx] password: " -u root /bin/sh -c '"'"'echo SUDO-SUCCESS-puxfjfuthvekswwrdhjgvbxmyxjpaegx; LC_CTYPE=en_US.UTF-8 LANG=en_US.UTF-8 /usr/bin/python /home/ducktape/.ansible/tmp/ansible-tmp-1405719137.05-180468886045628/command; rm -rf /home/ducktape/.ansible/tmp/ansible-tmp-1405719137.05-180468886045628/ >/dev/null 2>&1'"'"''
+changed: [localhost] => (item=components.ez.no) => {"changed": true, "cmd": "pear channel-discover components.ez.no ", "delta": "0:00:00.034696", "end": "2014-07-18 16:32:17.121849", "failed": false, "failed_when_result": false, "item": "components.ez.no", "rc": 1, "start": "2014-07-18 16:32:17.087153", "stderr": "", "stdout": "Channel \"components.ez.no\" is already initialized", "stdout_lines": ["Channel \"components.ez.no\" is already initialized"]}
+
+TASK: [debian | Install PHPUnit] ********************************************** 
+<localhost> REMOTE_MODULE command pear install -a phpunit/PHPUnit #USE_SHELL
+<localhost> EXEC ['/bin/sh', '-c', 'mkdir -p $HOME/.ansible/tmp/ansible-tmp-1405719137.14-151289951389897 && chmod a+rx $HOME/.ansible/tmp/ansible-tmp-1405719137.14-151289951389897 && echo $HOME/.ansible/tmp/ansible-tmp-1405719137.14-151289951389897']
+<localhost> PUT /tmp/tmpsdxyBn TO /home/ducktape/.ansible/tmp/ansible-tmp-1405719137.14-151289951389897/command
+<localhost> EXEC /bin/sh -c 'sudo -k && sudo -H -S -p "[sudo via ansible, key=qepbzbvxmkcscsyfdcddmocfixtqqqxy] password: " -u root /bin/sh -c '"'"'echo SUDO-SUCCESS-qepbzbvxmkcscsyfdcddmocfixtqqqxy; LC_CTYPE=en_US.UTF-8 LANG=en_US.UTF-8 /usr/bin/python /home/ducktape/.ansible/tmp/ansible-tmp-1405719137.14-151289951389897/command; rm -rf /home/ducktape/.ansible/tmp/ansible-tmp-1405719137.14-151289951389897/ >/dev/null 2>&1'"'"''
+changed: [localhost] => {"changed": true, "cmd": "pear install -a phpunit/PHPUnit ", "delta": "0:00:00.048925", "end": "2014-07-18 16:32:17.225717", "failed": false, "failed_when_result": false, "rc": 1, "start": "2014-07-18 16:32:17.176792", "stderr": "", "stdout": "phpunit/PHPUnit is already installed and is the same as the released version 4.0.17\ninstall failed", "stdout_lines": ["phpunit/PHPUnit is already installed and is the same as the released version 4.0.17", "install failed"]}
+
+TASK: [debian | Replacing default config with ducktape example] *************** 
+<localhost> EXEC ['/bin/sh', '-c', 'mkdir -p $HOME/.ansible/tmp/ansible-tmp-1405719137.24-244627789116232 && chmod a+rx $HOME/.ansible/tmp/ansible-tmp-1405719137.24-244627789116232 && echo $HOME/.ansible/tmp/ansible-tmp-1405719137.24-244627789116232']
+<localhost> EXEC /bin/sh -c 'sudo -k && sudo -H -S -p "[sudo via ansible, key=cughwhpytwjuigqzcdvupwmwimwqiniu] password: " -u root /bin/sh -c '"'"'echo SUDO-SUCCESS-cughwhpytwjuigqzcdvupwmwimwqiniu; rc=0; [ -r "/etc/apache2/sites-available/default" ] || rc=2; [ -f "/etc/apache2/sites-available/default" ] || rc=1; [ -d "/etc/apache2/sites-available/default" ] && echo 3 && exit 0; (/usr/bin/md5sum /etc/apache2/sites-available/default 2>/dev/null) || (/sbin/md5sum -q /etc/apache2/sites-available/default 2>/dev/null) || (/usr/bin/digest -a md5 /etc/apache2/sites-available/default 2>/dev/null) || (/sbin/md5 -q /etc/apache2/sites-available/default 2>/dev/null) || (/usr/bin/md5 -n /etc/apache2/sites-available/default 2>/dev/null) || (/bin/md5 -q /etc/apache2/sites-available/default 2>/dev/null) || (/usr/bin/csum -h MD5 /etc/apache2/sites-available/default 2>/dev/null) || (/bin/csum -h MD5 /etc/apache2/sites-available/default 2>/dev/null) || (echo "${rc} /etc/apache2/sites-available/default")'"'"''
+<localhost> PUT /tmp/tmp6_Br_f TO /home/ducktape/.ansible/tmp/ansible-tmp-1405719137.24-244627789116232/file
+<localhost> EXEC /bin/sh -c 'sudo -k && sudo -H -S -p "[sudo via ansible, key=pmywduccwhyacyyafhgjvzsafzqqwwxn] password: " -u root /bin/sh -c '"'"'echo SUDO-SUCCESS-pmywduccwhyacyyafhgjvzsafzqqwwxn; LC_CTYPE=en_US.UTF-8 LANG=en_US.UTF-8 /usr/bin/python /home/ducktape/.ansible/tmp/ansible-tmp-1405719137.24-244627789116232/file; rm -rf /home/ducktape/.ansible/tmp/ansible-tmp-1405719137.24-244627789116232/ >/dev/null 2>&1'"'"''
+ok: [localhost] => {"changed": false, "gid": 1001, "group": "developers", "mode": "0664", "owner": "ducktape", "path": "/etc/apache2/sites-available/default", "size": 578, "state": "file", "uid": 1000}
+
+TASK: [debian | Install MySQL] ************************************************ 
+<localhost> REMOTE_MODULE apt name=mysql-server state=present
+<localhost> EXEC ['/bin/sh', '-c', 'mkdir -p $HOME/.ansible/tmp/ansible-tmp-1405719137.31-107059138016387 && chmod a+rx $HOME/.ansible/tmp/ansible-tmp-1405719137.31-107059138016387 && echo $HOME/.ansible/tmp/ansible-tmp-1405719137.31-107059138016387']
+<localhost> PUT /tmp/tmpbhRDkO TO /home/ducktape/.ansible/tmp/ansible-tmp-1405719137.31-107059138016387/apt
+<localhost> EXEC /bin/sh -c 'sudo -k && sudo -H -S -p "[sudo via ansible, key=qkekfyfulbrcomejicbzyttdmctkdpxh] password: " -u root /bin/sh -c '"'"'echo SUDO-SUCCESS-qkekfyfulbrcomejicbzyttdmctkdpxh; LC_CTYPE=en_US.UTF-8 LANG=en_US.UTF-8 /usr/bin/python /home/ducktape/.ansible/tmp/ansible-tmp-1405719137.31-107059138016387/apt; rm -rf /home/ducktape/.ansible/tmp/ansible-tmp-1405719137.31-107059138016387/ >/dev/null 2>&1'"'"''
+ok: [localhost] => {"changed": false}
+
+TASK: [debian | Create ducktape MySQL user with permissions to ducktape.*] **** 
+<localhost> REMOTE_MODULE mysql_user name=ducktape password=VALUE_HIDDEN priv=ducktape.*:ALL state=present
+<localhost> EXEC ['/bin/sh', '-c', 'mkdir -p $HOME/.ansible/tmp/ansible-tmp-1405719137.52-165376290543785 && chmod a+rx $HOME/.ansible/tmp/ansible-tmp-1405719137.52-165376290543785 && echo $HOME/.ansible/tmp/ansible-tmp-1405719137.52-165376290543785']
+<localhost> PUT /tmp/tmpcqN0Ik TO /home/ducktape/.ansible/tmp/ansible-tmp-1405719137.52-165376290543785/mysql_user
+<localhost> EXEC ['/bin/sh', '-c', u'LC_CTYPE=en_US.UTF-8 LANG=en_US.UTF-8 /usr/bin/python /home/ducktape/.ansible/tmp/ansible-tmp-1405719137.52-165376290543785/mysql_user; rm -rf /home/ducktape/.ansible/tmp/ansible-tmp-1405719137.52-165376290543785/ >/dev/null 2>&1']
+ok: [localhost] => {"changed": false, "user": "ducktape"}
+
+TASK: [Check if DuckTape project exists] ************************************** 
+<localhost> REMOTE_MODULE stat path=/var/www/ducktape
+<localhost> EXEC ['/bin/sh', '-c', 'mkdir -p $HOME/.ansible/tmp/ansible-tmp-1405719137.58-128515908967270 && chmod a+rx $HOME/.ansible/tmp/ansible-tmp-1405719137.58-128515908967270 && echo $HOME/.ansible/tmp/ansible-tmp-1405719137.58-128515908967270']
+<localhost> PUT /tmp/tmp9TMkp4 TO /home/ducktape/.ansible/tmp/ansible-tmp-1405719137.58-128515908967270/stat
+<localhost> EXEC ['/bin/sh', '-c', u'LC_CTYPE=en_US.UTF-8 LANG=en_US.UTF-8 /usr/bin/python /home/ducktape/.ansible/tmp/ansible-tmp-1405719137.58-128515908967270/stat; rm -rf /home/ducktape/.ansible/tmp/ansible-tmp-1405719137.58-128515908967270/ >/dev/null 2>&1']
+ok: [localhost] => {"changed": false, "stat": {"atime": 1405713802.929209, "ctime": 1405713802.136813, "dev": 2049, "exists": true, "gid": 1001, "inode": 279702, "isblk": false, "ischr": false, "isdir": true, "isfifo": false, "isgid": true, "islnk": false, "isreg": false, "issock": false, "isuid": false, "mode": "2755", "mtime": 1405713802.136813, "nlink": 7, "pw_name": "ducktape", "rgrp": true, "roth": true, "rusr": true, "size": 4096, "uid": 1000, "wgrp": false, "woth": false, "wusr": true, "xgrp": true, "xoth": true, "xusr": true}}
+
+TASK: [Clone GitHub DuckTape Default Project] ********************************* 
+skipping: [localhost]
+
+TASK: [Clone ducktape.php from Github to Example project] ********************* 
+skipping: [localhost]
+
+TASK: [Generate api.yml secret] *********************************************** 
+<localhost> REMOTE_MODULE command php /var/www/ducktape/local/generate_secret.php #USE_SHELL
+<localhost> EXEC ['/bin/sh', '-c', 'mkdir -p $HOME/.ansible/tmp/ansible-tmp-1405719137.62-135473407494654 && chmod a+rx $HOME/.ansible/tmp/ansible-tmp-1405719137.62-135473407494654 && echo $HOME/.ansible/tmp/ansible-tmp-1405719137.62-135473407494654']
+<localhost> PUT /tmp/tmpGKCFeE TO /home/ducktape/.ansible/tmp/ansible-tmp-1405719137.62-135473407494654/command
+<localhost> EXEC ['/bin/sh', '-c', u'LC_CTYPE=en_US.UTF-8 LANG=en_US.UTF-8 /usr/bin/python /home/ducktape/.ansible/tmp/ansible-tmp-1405719137.62-135473407494654/command; rm -rf /home/ducktape/.ansible/tmp/ansible-tmp-1405719137.62-135473407494654/ >/dev/null 2>&1']
+changed: [localhost] => {"changed": true, "cmd": "php /var/www/ducktape/local/generate_secret.php ", "delta": "0:00:00.014020", "end": "2014-07-18 16:32:17.667973", "rc": 0, "start": "2014-07-18 16:32:17.653953", "stderr": "", "stdout": "52d57b6b0462b8583156e72181c1eae0"}
+
+TASK: [Generate api.yml key] ************************************************** 
+<localhost> REMOTE_MODULE command php /var/www/ducktape/local/generate_key.php #USE_SHELL
+<localhost> EXEC ['/bin/sh', '-c', 'mkdir -p $HOME/.ansible/tmp/ansible-tmp-1405719137.68-38247288530614 && chmod a+rx $HOME/.ansible/tmp/ansible-tmp-1405719137.68-38247288530614 && echo $HOME/.ansible/tmp/ansible-tmp-1405719137.68-38247288530614']
+<localhost> PUT /tmp/tmpc6vmR1 TO /home/ducktape/.ansible/tmp/ansible-tmp-1405719137.68-38247288530614/command
+<localhost> EXEC ['/bin/sh', '-c', u'LC_CTYPE=en_US.UTF-8 LANG=en_US.UTF-8 /usr/bin/python /home/ducktape/.ansible/tmp/ansible-tmp-1405719137.68-38247288530614/command; rm -rf /home/ducktape/.ansible/tmp/ansible-tmp-1405719137.68-38247288530614/ >/dev/null 2>&1']
+changed: [localhost] => {"changed": true, "cmd": "php /var/www/ducktape/local/generate_key.php ", "delta": "0:00:00.013181", "end": "2014-07-18 16:32:17.720865", "rc": 0, "start": "2014-07-18 16:32:17.707684", "stderr": "", "stdout": "52d57b6b04"}
+
+TASK: [Does api.yml exist in ducktape example?] ******************************* 
+<localhost> REMOTE_MODULE stat path=/var/www/ducktape/local/api.yml
+<localhost> EXEC ['/bin/sh', '-c', 'mkdir -p $HOME/.ansible/tmp/ansible-tmp-1405719137.73-114992170416469 && chmod a+rx $HOME/.ansible/tmp/ansible-tmp-1405719137.73-114992170416469 && echo $HOME/.ansible/tmp/ansible-tmp-1405719137.73-114992170416469']
+<localhost> PUT /tmp/tmpiXkhtm TO /home/ducktape/.ansible/tmp/ansible-tmp-1405719137.73-114992170416469/stat
+<localhost> EXEC ['/bin/sh', '-c', u'LC_CTYPE=en_US.UTF-8 LANG=en_US.UTF-8 /usr/bin/python /home/ducktape/.ansible/tmp/ansible-tmp-1405719137.73-114992170416469/stat; rm -rf /home/ducktape/.ansible/tmp/ansible-tmp-1405719137.73-114992170416469/ >/dev/null 2>&1']
+ok: [localhost] => {"changed": false, "stat": {"atime": 1405659390.637129, "ctime": 1405659259.5291274, "dev": 2049, "exists": true, "gid": 1000, "inode": 398712, "isblk": false, "ischr": false, "isdir": false, "isfifo": false, "isgid": false, "islnk": false, "isreg": true, "issock": false, "isuid": false, "md5": "663e450f2a55aba30c6d7d259edbd939", "mode": "0644", "mtime": 1405659259.5011272, "nlink": 1, "pw_name": "ducktape", "rgrp": true, "roth": true, "rusr": true, "size": 88, "uid": 1000, "wgrp": false, "woth": false, "wusr": true, "xgrp": false, "xoth": false, "xusr": false}}
+
+TASK: [Place secret/key/provider IP in api.yml] ******************************* 
+skipping: [localhost]
+
+TASK: [Replace URL in api.yml with IP of localhost] *************************** 
+ok: [localhost] => {
+    "msg": "only replace ipv4 address"
+}
+
+TASK: [Insert 'insert' statement in SQL] ************************************** 
+<localhost> REMOTE_MODULE lineinfile dest=/var/www/ducktape/local/ducktape-gettingstarted.sql line="INSERT INTO `consumers` VALUES (1,'ducktape','52d57b6b04','52d57b6b0462b8583156e72181c1eae0','1',NULL);" regexp="^INSERT INTO `consumers`" insertafter="-- INSERT HERE --"
+<localhost> EXEC ['/bin/sh', '-c', 'mkdir -p $HOME/.ansible/tmp/ansible-tmp-1405719137.78-186625324889158 && chmod a+rx $HOME/.ansible/tmp/ansible-tmp-1405719137.78-186625324889158 && echo $HOME/.ansible/tmp/ansible-tmp-1405719137.78-186625324889158']
+<localhost> PUT /tmp/tmpdxGjuf TO /home/ducktape/.ansible/tmp/ansible-tmp-1405719137.78-186625324889158/lineinfile
+<localhost> EXEC ['/bin/sh', '-c', u'LC_CTYPE=en_US.UTF-8 LANG=en_US.UTF-8 /usr/bin/python /home/ducktape/.ansible/tmp/ansible-tmp-1405719137.78-186625324889158/lineinfile; rm -rf /home/ducktape/.ansible/tmp/ansible-tmp-1405719137.78-186625324889158/ >/dev/null 2>&1']
+changed: [localhost] => {"backup": "", "changed": true, "msg": "line replaced"}
+
+TASK: [Replace Records in MySQL dump for default Consumer] ******************** 
+<localhost> REMOTE_MODULE mysql_db name=ducktape state=import target=/var/www/ducktape/local/ducktape-gettingstarted.sql login_user=root login_password=VALUE_HIDDEN
+<localhost> EXEC ['/bin/sh', '-c', 'mkdir -p $HOME/.ansible/tmp/ansible-tmp-1405719137.83-265644424924572 && chmod a+rx $HOME/.ansible/tmp/ansible-tmp-1405719137.83-265644424924572 && echo $HOME/.ansible/tmp/ansible-tmp-1405719137.83-265644424924572']
+<localhost> PUT /tmp/tmpJRk7s0 TO /home/ducktape/.ansible/tmp/ansible-tmp-1405719137.83-265644424924572/mysql_db
+<localhost> EXEC ['/bin/sh', '-c', u'LC_CTYPE=en_US.UTF-8 LANG=en_US.UTF-8 /usr/bin/python /home/ducktape/.ansible/tmp/ansible-tmp-1405719137.83-265644424924572/mysql_db; rm -rf /home/ducktape/.ansible/tmp/ansible-tmp-1405719137.83-265644424924572/ >/dev/null 2>&1']
+failed: [localhost] => {"failed": true}
+msg: unable to connect, check login_user and login_password are correct, or alternatively check ~/.my.cnf contains credentials
+
+FATAL: all hosts have already failed -- aborting
+
+PLAY RECAP ******************************************************************** 
+           to retry, use: --limit @/home/ducktape/deploy_ducktape.retry
+
+localhost                  : ok=23   changed=9    unreachable=0    failed=1   
+
