@@ -1,3 +1,16 @@
+- name: Channel Update pear.php.net
+  sudo: true
+  shell: pear channel-update pear.php.net
+- name: Upgrade PEAR
+  sudo: true
+  shell: pear upgrade pear
+- name: Discovering PEAR channels
+  sudo: true
+  shell: pear channel-discover {{item}}
+  with_items: pears
+  register: channels
+  ignore_errors: yes
+  failed_when: "'initialized' not in channels.stdout"
 - name: Install pecl_http
   sudo: true
   shell: printf "yes\n" | pecl install http://pecl.php.net/get/pecl_http-1.7.6.tgz
@@ -31,19 +44,6 @@
   lineinfile: dest="{{item}}" line='extension=oauth.so' state=present
   with_items: phpinis
   when: oauth|success or oauth|changed
-- name: Channel Update pear.php.net
-  sudo: true
-  shell: pear channel-update pear.php.net
-- name: Upgrade PEAR
-  sudo: true
-  shell: pear upgrade pear
-- name: Discovering PEAR channels
-  sudo: true
-  shell: pear channel-discover {{item}}
-  with_items: pears
-  register: channels
-  ignore_errors: yes
-  failed_when: "'initialized' not in channels.stdout"
 - name: Install PHPUnit
   sudo: true
   register: phpunit
